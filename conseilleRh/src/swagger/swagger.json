@@ -1,0 +1,120 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "API de Conseiller",
+    "version": "1.0.0",
+    "description": "Documentation complète de l'API pour la gestion des employés, bénéficiaires, demandes, conseillers RH, notifications et compagnies."
+  },
+  "servers": [
+    {
+      "url": "http://localhost:3003/api",
+      "description": "Serveur local"
+    }
+  ],
+  "tags": [
+ 
+    { "name": "Conseillers RH" }
+ 
+  ],
+  "paths": {
+  
+
+  
+    "/conseillers": {
+      "get": {
+        "tags": ["Conseillers RH"],
+        "summary": "Lister tous les conseillers RH",
+        "responses": {
+          "200": { "description": "Succès" }
+        }
+      },
+      "post": {
+        "tags": ["Conseillers RH"],
+        "summary": "Créer un conseiller RH",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "nom": { "type": "string", "example": "Rakoto" },
+                  "prenom": { "type": "string", "example": "Jean" }
+                },
+                "required": ["nom", "prenom"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": { "description": "Conseiller RH créé" },
+          "400": { "description": "Erreur de validation" }
+        }
+      }
+    },
+    "/conseillers/{id}": {
+      "get": {
+        "tags": ["Conseillers RH"],
+        "summary": "Obtenir un conseiller RH par ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": { "description": "Succès" },
+          "404": { "description": "Conseiller RH non trouvé" }
+        }
+      },
+      "put": {
+        "tags": ["Conseillers RH"],
+        "summary": "Mettre à jour un conseiller RH",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string" }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "nom": { "type": "string", "example": "Ratsimba" },
+                  "prenom": { "type": "string", "example": "Fanja" }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": { "description": "Conseiller RH mis à jour" },
+          "400": { "description": "Requête invalide" },
+          "404": { "description": "Conseiller RH non trouvé" }
+        }
+      },
+      "delete": {
+        "tags": ["Conseillers RH"],
+        "summary": "Supprimer un conseiller RH",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "204": { "description": "Conseiller RH supprimé" }
+        }
+      }
+    }
+  }
+}

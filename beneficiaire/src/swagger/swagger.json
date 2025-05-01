@@ -1,0 +1,119 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "API de  Bénéficiaires",
+    "version": "1.0.0",
+    "description": "Documentation complète de l'API pour la gestion des employés, bénéficiaires, demandes, conseillers RH, notifications et compagnies."
+  },
+  "servers": [
+    {
+      "url": "http://localhost:3000/api",
+      "description": "Serveur local"
+    }
+  ],
+  "tags": [
+    { "name": "Bénéficiaires" }
+  ],
+  "paths": {
+ 
+
+    "/beneficiaires": {
+      "get": {
+        "tags": ["Bénéficiaires"],
+        "summary": "Lister tous les bénéficiaires",
+        "responses": {
+          "200": { "description": "Succès" }
+        }
+      },
+      "post": {
+        "tags": ["Bénéficiaires"],
+        "summary": "Créer un bénéficiaire",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "nom": { "type": "string", "example": "Andrianina" },
+                  "prenom": { "type": "string", "example": "Miora" },
+                  "lienParente": { "type": "string", "example": "Fille" }
+                },
+                "required": ["nom", "prenom", "lienParente"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": { "description": "Bénéficiaire créé" },
+          "400": { "description": "Erreur de validation" }
+        }
+      }
+    },
+    "/beneficiaires/{id}": {
+      "get": {
+        "tags": ["Bénéficiaires"],
+        "summary": "Obtenir un bénéficiaire par ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": { "description": "Succès" },
+          "404": { "description": "Bénéficiaire non trouvé" }
+        }
+      },
+      "put": {
+        "tags": ["Bénéficiaires"],
+        "summary": "Mettre à jour un bénéficiaire",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string" }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "nom": { "type": "string", "example": "Rasoa" },
+                  "prenom": { "type": "string", "example": "Tiana" },
+                  "lienParente": { "type": "string", "example": "Conjoint" }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": { "description": "Bénéficiaire mis à jour" },
+          "400": { "description": "Requête invalide" },
+          "404": { "description": "Bénéficiaire non trouvé" }
+        }
+      },
+      "delete": {
+        "tags": ["Bénéficiaires"],
+        "summary": "Supprimer un bénéficiaire",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "204": { "description": "Bénéficiaire supprimé" }
+        }
+      }
+    }
+  }
+}

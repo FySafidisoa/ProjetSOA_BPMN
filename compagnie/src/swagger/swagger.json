@@ -1,0 +1,113 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "API de Compagnie",
+    "version": "1.0.0",
+    "description": "Documentation complète de l'API pour la gestion des employés, bénéficiaires, demandes, conseillers RH, notifications et compagnies."
+  },
+  "servers": [
+    {
+      "url": "http://localhost:3002/api",
+      "description": "Serveur local"
+    }
+  ],
+  "tags": [
+    { "name": "Compagnies" }
+  ],
+  "paths": {
+    "/compagnies": {
+      "get": {
+        "tags": ["Compagnies"],
+        "summary": "Lister toutes les compagnies d'assurance",
+        "responses": {
+          "200": { "description": "Succès" }
+        }
+      },
+      "post": {
+        "tags": ["Compagnies"],
+        "summary": "Créer une compagnie d'assurance",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "nom": { "type": "string", "example": "Aro Assurance" }
+                },
+                "required": ["nom"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": { "description": "Compagnie créée" },
+          "400": { "description": "Erreur de validation" }
+        }
+      }
+    },
+    "/compagnies/{id}": {
+      "get": {
+        "tags": ["Compagnies"],
+        "summary": "Obtenir une compagnie par ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": { "description": "Succès" },
+          "404": { "description": "Compagnie non trouvée" }
+        }
+      },
+      "put": {
+        "tags": ["Compagnies"],
+        "summary": "Mettre à jour une compagnie d'assurance",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string" }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "nom": { "type": "string", "example": "Ny Havana" }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": { "description": "Compagnie mise à jour" },
+          "400": { "description": "Requête invalide" },
+          "404": { "description": "Compagnie non trouvée" }
+        }
+      },
+      "delete": {
+        "tags": ["Compagnies"],
+        "summary": "Supprimer une compagnie d'assurance",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "204": { "description": "Compagnie supprimée" }
+        }
+      }
+    }
+  }
+}

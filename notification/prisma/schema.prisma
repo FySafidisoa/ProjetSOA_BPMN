@@ -1,0 +1,20 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL6")
+}
+
+
+
+model Notification {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  type      String
+  message   String
+  employeId String? @db.ObjectId
+  conseillerId String? @db.ObjectId
+  compagnieId String? @db.ObjectId
+}
+

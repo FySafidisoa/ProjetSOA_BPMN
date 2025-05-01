@@ -1,0 +1,125 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "API de Gestion Employés",
+    "version": "1.0.0",
+    "description": "Documentation complète de l'API pour la gestion des employés, bénéficiaires, demandes, conseillers RH, notifications et compagnies."
+  },
+  "servers": [
+    {
+      "url": "http://localhost:3005/api",
+      "description": "Serveur local"
+    }
+  ],
+  "tags": [
+    { "name": "Employés" }
+  ],
+  "paths": {
+    "/employes": {
+      "get": {
+        "tags": ["Employés"],
+        "summary": "Lister tous les employés",
+        "responses": {
+          "200": { "description": "Succès" }
+        }
+      },
+      "post": {
+        "summary": "Créer un employé",
+        "tags": ["Employés"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "nom": {
+                    "type": "string",
+                    "example": "Randria"
+                  },
+                  "prenom": {
+                    "type": "string",
+                    "example": "Sitraka"
+                  },
+                  "telephone": {
+                    "type": "string",
+                    "example": "0321234567"
+                  }
+                },
+                "required": ["nom", "prenom", "telephone"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": { "description": "Employé créé" },
+          "400": { "description": "Erreur de validation" }
+        }
+      }
+    },
+    "/employes/{id}": {
+      "get": {
+        "tags": ["Employés"],
+        "summary": "Obtenir un employé par ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": { "description": "Succès" },
+          "404": { "description": "Non trouvé" }
+        }
+      },
+
+      "put": {
+        "tags": ["Employés"],
+        "summary": "Mettre à jour un employé",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string" }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "nom": { "type": "string", "example": "Rakoto" },
+                  "prenom": { "type": "string", "example": "Jean" },
+                  "telephone": { "type": "string", "example": "0321234567" }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": { "description": "Employé mis à jour" },
+          "400": { "description": "Requête invalide" },
+          "404": { "description": "Employé non trouvé" }
+        }
+      },
+      "delete": {
+        "tags": ["Employés"],
+        "summary": "Supprimer un employé",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": { "204": { "description": "Supprimé" } }
+      }
+    }
+  }
+}

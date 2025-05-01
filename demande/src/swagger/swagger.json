@@ -1,0 +1,157 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "API de demande",
+    "version": "1.0.0",
+    "description": "Documentation complète de l'API pour la gestion des employés, bénéficiaires, demandes, conseillers RH, notifications et compagnies."
+  },
+  "servers": [
+    {
+      "url": "http://localhost:3004/api",
+      "description": "Serveur local"
+    }
+  ],
+  "tags": [
+
+    { "name": "Demandes" }
+  ],
+  "paths": {
+
+
+    "/demandes": {
+      "get": {
+        "tags": ["Demandes"],
+        "summary": "Lister toutes les demandes de mise à jour",
+        "responses": {
+          "200": { "description": "Succès" }
+        }
+      },
+      "post": {
+        "tags": ["Demandes"],
+        "summary": "Créer une demande de mise à jour",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "dateDemande": {
+                    "type": "string",
+                    "format": "date-time",
+                    "example": "2025-04-29T10:00:00Z"
+                  },
+                  "statut": { "type": "string", "example": "en cours" },
+                  "employeId": {
+                    "type": "string",
+                    "example": "661ee9e4915c9f570ef21f11"
+                  },
+                  "beneficiaireId": {
+                    "type": "string",
+                    "example": "661ee9e4915c9f570ef21f22"
+                  },
+                  "conseillerId": {
+                    "type": "string",
+                    "nullable": true,
+                    "example": "661ee9e4915c9f570ef21f33"
+                  }
+                },
+                "required": [
+                  "dateDemande",
+                  "statut",
+                  "employeId",
+                  "beneficiaireId"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": { "description": "Demande créée" },
+          "400": { "description": "Erreur de validation" }
+        }
+      }
+    },
+    "/demandes/{id}": {
+      "get": {
+        "tags": ["Demandes"],
+        "summary": "Obtenir une demande par ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": { "description": "Succès" },
+          "404": { "description": "Demande non trouvée" }
+        }
+      },
+      "put": {
+        "tags": ["Demandes"],
+        "summary": "Mettre à jour une demande de mise à jour",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string" }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "dateDemande": {
+                    "type": "string",
+                    "format": "date-time",
+                    "example": "2025-04-30T08:00:00Z"
+                  },
+                  "statut": { "type": "string", "example": "validée" },
+                  "employeId": {
+                    "type": "string",
+                    "example": "661ee9e4915c9f570ef21f11"
+                  },
+                  "beneficiaireId": {
+                    "type": "string",
+                    "example": "661ee9e4915c9f570ef21f22"
+                  },
+                  "conseillerId": {
+                    "type": "string",
+                    "nullable": true,
+                    "example": "661ee9e4915c9f570ef21f33"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": { "description": "Demande mise à jour" },
+          "400": { "description": "Requête invalide" },
+          "404": { "description": "Demande non trouvée" }
+        }
+      },
+      "delete": {
+        "tags": ["Demandes"],
+        "summary": "Supprimer une demande de mise à jour",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "204": { "description": "Demande supprimée" }
+        }
+      }
+    }
+  }
+}
