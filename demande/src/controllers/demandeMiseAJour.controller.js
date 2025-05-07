@@ -1,9 +1,16 @@
 import prisma from '../prisma/client.js';
-
+import axios from 'axios';
 const create = async (req, res) => {
   try {
     const demande = await prisma.demandeMiseAJour.create({ data: req.body });
     res.status(201).json(demande);
+    await axios.post('http://localhost:3006/api/notifications', {
+      type: "DEMANDE",
+      message: "Nouvelle demande reçue",
+      employeId: demande.employeId,
+      conseillerId: demande.conseillerId,
+      compagnieId: demande.beneficiaireId
+    });
   } catch (error) {
     res.status(500).json({ error: error.message });
   }

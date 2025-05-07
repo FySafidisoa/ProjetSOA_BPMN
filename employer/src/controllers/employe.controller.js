@@ -20,15 +20,6 @@ const create = async (req, res) => {
       data: { ...req.body },
     });
 
-    // Envoi de la notification à l'autre backend
-    await axios.post('http://localhost:3006/api/notifications', {
-      type: 'ajout employe',
-      message: 'Nouvelle employé reçue',
-      employeId: employe.id,
-      conseillerId: "661ee9e4915c9f570ef21f35",
-      compagnieId: "661ee9e4915c9f570ef21f37"
-    });
-
     res.status(201).json(employe);
   } catch (error) {
     res.status(500).json({ error: error.message });
